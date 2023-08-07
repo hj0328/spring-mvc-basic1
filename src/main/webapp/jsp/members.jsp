@@ -5,7 +5,7 @@
 <%
 
     MemberRepository memberRepository = MemberRepository.getInstance();
-a    List<Member> members = memberRepository.findAll();
+    List<Member> members = memberRepository.findAll();
 
 %>
 <html>
