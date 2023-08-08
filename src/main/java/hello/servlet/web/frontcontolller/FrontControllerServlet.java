@@ -1,4 +1,4 @@
-package hello.servlet.web.frontcontolller.v1;
+package hello.servlet.web.frontcontolller;
 
 import hello.servlet.web.frontcontolller.v1.controller.MemberFormControllerV1;
 import hello.servlet.web.frontcontolller.v1.controller.MemberListControllerV1;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @WebServlet(name = "frontControllerServlet", urlPatterns = "/front-controller/v2/*")
 public class FrontControllerServlet extends HttpServlet {
-    private Map<String, ControllerV1> controllerMap = new HashMap<>();
+    private Map<String, Controller> controllerMap = new HashMap<>();
 
     public FrontControllerServlet() {
         controllerMap.put("/front-controller/v2/members/new-form", new MemberFormControllerV1());
@@ -29,7 +29,7 @@ public class FrontControllerServlet extends HttpServlet {
         System.out.println("FrontControllerServlet.service");
         String requestURI = request.getRequestURI();
 
-        ControllerV1 controller = controllerMap.get(requestURI);
+        Controller controller = controllerMap.get(requestURI);
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;

@@ -1,11 +1,11 @@
-package hello.servlet.web.frontcontolller.v1;
+package hello.servlet.web.frontcontolller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public interface ControllerV1 {
+public interface Controller {
     MyView process(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException;
 }

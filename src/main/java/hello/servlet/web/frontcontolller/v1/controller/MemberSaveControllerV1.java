@@ -2,16 +2,15 @@ package hello.servlet.web.frontcontolller.v1.controller;
 
 import hello.servlet.domain.member.Member;
 import hello.servlet.domain.member.MemberRepository;
-import hello.servlet.web.frontcontolller.v1.ControllerV1;
-import hello.servlet.web.frontcontolller.v1.MyView;
+import hello.servlet.web.frontcontolller.Controller;
+import hello.servlet.web.frontcontolller.MyView;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class MemberSaveControllerV1 implements ControllerV1 {
+public class MemberSaveControllerV1 implements Controller {
 
     private MemberRepository memberRepository = MemberRepository.getInstance();
 

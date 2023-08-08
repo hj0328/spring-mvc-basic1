@@ -1,4 +1,4 @@
-package hello.servlet.web.frontcontolller.v1;
+package hello.servlet.web.frontcontolller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
