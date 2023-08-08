@@ -3,6 +3,7 @@ package hello.servlet.web.frontcontolller.v1.controller;
 import hello.servlet.domain.member.Member;
 import hello.servlet.domain.member.MemberRepository;
 import hello.servlet.web.frontcontolller.v1.ControllerV1;
+import hello.servlet.web.frontcontolller.v1.MyView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ public class MemberSaveControllerV1 implements ControllerV1 {
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    public void process(HttpServletRequest request, HttpServletResponse response)
+    public MyView process(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String username = request.getParameter("username");
@@ -27,8 +28,6 @@ public class MemberSaveControllerV1 implements ControllerV1 {
         // Model에 데이터 보관
         request.setAttribute("member", member);
 
-        String viewPath = "/WEB-INF/views/save-result.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
-        dispatcher.forward(request, response);
+        return new MyView("/WEB-INF/views/save-result.jsp");
     }
 }
