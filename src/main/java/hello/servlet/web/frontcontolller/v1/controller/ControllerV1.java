@@ -1,12 +1,10 @@
-package hello.servlet.web.frontcontolller;
+package hello.servlet.web.frontcontolller.v1.controller;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-public interface Controller {
+public interface ControllerV1 {
     String process(Map<String, String> paramMap, Map<String, Object> model)
             throws ServletException, IOException;
 }

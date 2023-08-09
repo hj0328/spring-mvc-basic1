@@ -1,20 +1,19 @@
-package hello.servlet.web.frontcontolller.v1.controller;
+package hello.servlet.web.frontcontolller.v2.controller;
 
 import hello.servlet.domain.member.Member;
 import hello.servlet.domain.member.MemberRepository;
+import hello.servlet.web.frontcontolller.ModelView;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Map;
 
-public class MemberSaveControllerV1 implements ControllerV1 {
+public class MemberSaveControllerV2 implements ControllerV2{
 
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    public String process(Map<String, String> paramMap, Map<String, Object> model)
-            throws ServletException, IOException {
-
+    public ModelView process(Map<String, String> paramMap) throws ServletException, IOException {
         String username = paramMap.get("username");
         int age = Integer.parseInt(paramMap.get("age"));
 
@@ -22,8 +21,9 @@ public class MemberSaveControllerV1 implements ControllerV1 {
         memberRepository.save(member);
 
         // Model에 데이터 보관
-        model.put("member", member);
+        ModelView modelView = new ModelView("save-result");
+        modelView.getModel().put("member", member);
 
-        return "save-result";
+        return modelView;
     }
 }
