@@ -18,12 +18,10 @@ public class MemberListControllerV1 implements Controller {
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    public ModelView process(Map<String, String> paramMap) throws ServletException, IOException {
+    public String process(Map<String, String> paramMap, Map<String, Object> model) throws ServletException, IOException {
         List<Member> members = memberRepository.findAll();
+        model.put("members", members);
 
-        ModelView modelView = new ModelView("members");
-        modelView.getModel().put("members", members);
-
-        return modelView;
+        return "members";
     }
 }

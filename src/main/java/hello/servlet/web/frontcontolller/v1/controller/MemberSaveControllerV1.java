@@ -15,7 +15,7 @@ public class MemberSaveControllerV1 implements Controller {
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    public ModelView process(Map<String, String> paramMap)
+    public String process(Map<String, String> paramMap, Map<String, Object> model)
             throws ServletException, IOException {
 
         String username = paramMap.get("username");
@@ -25,9 +25,8 @@ public class MemberSaveControllerV1 implements Controller {
         memberRepository.save(member);
 
         // Model에 데이터 보관
-        ModelView modelView = new ModelView("save-result");
-        modelView.getModel().put("member", member);
+        model.put("member", member);
 
-        return modelView;
+        return "save-result";
     }
 }

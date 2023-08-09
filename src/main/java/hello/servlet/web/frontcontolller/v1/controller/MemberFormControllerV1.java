@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class MemberFormControllerV1 implements Controller {
     @Override
-    public ModelView process(Map<String, String> paramMap)
+    public String process(Map<String, String> paramMap, Map<String, Object> model)
             throws ServletException, IOException {
 
-        return new ModelView("new-form");
+        return "new-form";
     }
 }

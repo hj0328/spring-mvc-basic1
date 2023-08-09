@@ -36,13 +36,15 @@ public class FrontControllerServlet extends HttpServlet {
         }
 
         HashMap<String, String> paramMap = createParamMap(request);
-        ModelView modelView = controller.process(paramMap);
-        MyView myView = viewResolver(modelView);
-        myView.render(modelView.getModel(), request, response);
+        HashMap<String, Object> model = new HashMap<>();
+        String viewName = controller.process(paramMap, model);
+
+        MyView myView = viewResolver(viewName);
+        myView.render(model, request, response);
     }
 
-    private MyView viewResolver(ModelView modelView) {
-        MyView myView = new MyView("/WEB-INF/views/" + modelView.getViewName() + ".jsp");
+    private MyView viewResolver(String viewName) {
+        MyView myView = new MyView("/WEB-INF/views/" + viewName + ".jsp");
         return myView;
     }
 
