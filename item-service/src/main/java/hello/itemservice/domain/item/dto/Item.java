@@ -1,4 +1,4 @@
-package hello.itemservice.domain.item;
+package hello.itemservice.domain.item.dto;
 
 import lombok.Data;
 
@@ -12,7 +12,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(String itemName, Integer price, Integer quantity) {
+    public Item(String itemName, int price, int quantity) {
         this.itemName = itemName;
         this.price = price;
         this.quantity = quantity;

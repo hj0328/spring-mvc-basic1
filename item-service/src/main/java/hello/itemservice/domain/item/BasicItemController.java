@@ -1,14 +1,14 @@
 package hello.itemservice.domain.item;
 
+import hello.itemservice.domain.item.dto.Item;
+import hello.itemservice.domain.item.dto.ItemSaveForm;
+import hello.itemservice.domain.item.dto.ItemUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -47,35 +47,28 @@ public class BasicItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@ModelAttribute Item item, BindingResult bindingResult,
+    public String addItem(@Validated @ModelAttribute("item") ItemSaveForm itemSaveForm, BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
 
-        log.info("POST:view/items, item={}", item);
+        log.info("POST:view/items, itemSaveForm={}", itemSaveForm);
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required");
-
-        if ((item.getPrice() == null) || (item.getPrice() < 1000) || item.getPrice() > 1000000) {
-            // bindingResult.addError(new FieldError("item", "price", "가격은 1,000 ~ 1,000,000 까지 허용합니다."));
-            bindingResult.rejectValue("price", "range", new Object[]{1000, 1000000}, null);
-        }
-
-        if (item.getQuantity() == null || item.getQuantity() > 10000) {
-            // bindingResult.addError(new FieldError("item", "quantity", "수량은 최대 9,999 까지 허용합니다."));
-            bindingResult.rejectValue("quantity", "max", new Object[]{9999}, null);
-        }
-
-        if (item.getPrice() != null && item.getQuantity() != null) {
-            int resultPrice = item.getPrice() * item.getQuantity();
+        if (itemSaveForm.getPrice() != null && itemSaveForm.getQuantity() != null) {
+            int resultPrice = itemSaveForm.getPrice() * itemSaveForm.getQuantity();
             if (resultPrice < 10000) {
-                bindingResult.addError(new ObjectError("item", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값=" + resultPrice));
-                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
-            }
-        }
+                bindingResult.reject("totalPriceMin", new Object[]{10000,
+                        resultPrice}, null);
+            } }
+
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             return "view/addForm";
         }
+
+        Item item = new Item();
+        item.setItemName(itemSaveForm.getItemName());
+        item.setPrice(itemSaveForm.getPrice());
+        item.setQuantity(itemSaveForm.getQuantity());
 
         Item saveItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", saveItem.getId());
@@ -92,13 +85,25 @@ public class BasicItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
-        log.info("POST:/basic/items/{itemId}/edit, itemId={}, item={}", itemId, item);
+    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateForm itemUpdateForm
+            , BindingResult bindingResult) {
+        log.info("POST:/basic/items/{itemId}/edit, itemId={}, itemUpdateForm={}", itemId, itemUpdateForm);
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "view/editForm";
+        }
+
+        Item item = new Item();
+        item.setItemName(itemUpdateForm.getItemName());
+        item.setPrice(itemUpdateForm.getPrice());
+        item.setQuantity(itemUpdateForm.getQuantity());
+
         itemRepository.update(itemId, item);
         return "redirect:/view/items/{itemId}";
     }
 
-    /*
+    /*2
         테스트용 데이터 추가
      */
     @PostConstruct
