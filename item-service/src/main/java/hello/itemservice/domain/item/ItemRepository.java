@@ -1,6 +1,5 @@
 package hello.itemservice.domain.item;
 
-import hello.itemservice.domain.item.dto.Item;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

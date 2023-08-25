@@ -1,8 +1,7 @@
 package hello.itemservice.domain.item;
 
-import hello.itemservice.domain.item.dto.Item;
-import hello.itemservice.domain.item.dto.ItemSaveForm;
-import hello.itemservice.domain.item.dto.ItemUpdateForm;
+import hello.itemservice.web.item.form.ItemSaveForm;
+import hello.itemservice.web.item.form.ItemUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

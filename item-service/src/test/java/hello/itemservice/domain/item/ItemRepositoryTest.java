@@ -1,6 +1,5 @@
 package hello.itemservice.domain.item;
 
-import hello.itemservice.domain.item.dto.Item;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
