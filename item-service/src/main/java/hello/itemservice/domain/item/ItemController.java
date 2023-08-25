@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/view/items")
 @RequiredArgsConstructor
-public class BasicItemController {
+public class ItemController {
 
     private final ItemRepository itemRepository;
 
