@@ -11,6 +11,6 @@ public class HomeController {
     @RequestMapping("/")
     public String home() {
         log.info("Redirect /items");
-        return "redirect:/view/items";
+        return "home";
     }
 }
